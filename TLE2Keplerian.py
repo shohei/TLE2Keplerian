@@ -49,6 +49,8 @@ if TLE[2][:2] != '2 'or checksum(TLE[2]) == False:
 SatName = TLE[0]
 SatName = SatName.replace("-","_")
 SatName = SatName.replace(" ","_")
+#Overwrite satellite name
+SatName = "DefaultSC"
 (line,SAT,Desgnator,TLEEpoch,MM1,MM2,BSTAR,EType,ElementNum) = TLE[1].split()
 (line,SATNum,Inc,RAAN,Ecc,AoP,MA,MM) = TLE[2].split()[:8]
 EpochY = int(TLEEpoch[:2])
