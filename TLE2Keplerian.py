@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from math import pi, sin, cos, radians, degrees, floor, sqrt, atan2
 from datetime import datetime, timedelta
 from sys import stdin
@@ -31,7 +32,7 @@ def getTrueAnomaly(ecc, EA):
 	fak = sqrt(1.0 - ecc * ecc)
 	return degrees(atan2(fak * sin(EA), cos(EA) - ecc))
 
-print "Enter TLE including object title:"
+print("Enter TLE including object title:")
 
 TLE=[]
 TLE.append(stdin.readline().strip())
@@ -39,13 +40,15 @@ TLE.append(stdin.readline().strip())
 TLE.append(stdin.readline().strip())
 
 if TLE[1][:2] != '1 ' or checksum(TLE[1]) == False:
-	print "Not a TLE"
+	print("Not a TLE")
 	exit()
 if TLE[2][:2] != '2 'or checksum(TLE[2]) == False:
-	print "Not a TLE"
+	print("Not a TLE")
 	exit()
 
 SatName = TLE[0]
+SatName = SatName.replace("-","_")
+SatName = SatName.replace(" ","_")
 (line,SAT,Desgnator,TLEEpoch,MM1,MM2,BSTAR,EType,ElementNum) = TLE[1].split()
 (line,SATNum,Inc,RAAN,Ecc,AoP,MA,MM) = TLE[2].split()[:8]
 EpochY = int(TLEEpoch[:2])
@@ -62,11 +65,11 @@ EA = getEccentricAnomaly(Ecc, radians(MA))
 TA = getTrueAnomaly(Ecc, radians(EA))
 Epoch = (datetime(EpochY-1,12,31) + timedelta(EpochD)).strftime("%d %b %Y %H:%M:%S.%f")[:-3]
 
-print "Year:",EpochY,"\nDay:",EpochD,"\nInclination:",Inc,"\nRAAN:",RAAN,"\nEccentricity:",Ecc
-print "AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Magor Axis:", SMA
-print "Epoch:", Epoch
+print("Year:",EpochY,"\nDay:",EpochD,"\nInclination:",Inc,"\nRAAN:",RAAN,"\nEccentricity:",Ecc)
+print("AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Magor Axis:", SMA)
+print("Epoch:", Epoch)
 
-print("\nCreate Spacecraft "+SatName+";\n" +
+print(("\nCreate Spacecraft "+SatName+";\n" +
 		"GMAT "+SatName+".Id = '"+SATNum+"';\n" +
 		"GMAT "+SatName+".DateFormat = UTCGregorian;\n" +
 		"GMAT "+SatName+".Epoch = '"+Epoch+"';\n" +
@@ -77,4 +80,4 @@ print("\nCreate Spacecraft "+SatName+";\n" +
 		"GMAT "+SatName+".INC = "+str(Inc)+";\n" +
 		"GMAT "+SatName+".RAAN = " + str(RAAN) + ";\n" +
 		"GMAT "+SatName+".AOP = " + str(AoP) + ";\n" +
-		"GMAT "+SatName+".TA = "+str(TA)+";\n")
+		"GMAT "+SatName+".TA = "+str(TA)+";\n"))
