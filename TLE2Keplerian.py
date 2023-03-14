@@ -64,10 +64,13 @@ SMA = MM2SMA(MM)
 EA = getEccentricAnomaly(Ecc, radians(MA))
 TA = getTrueAnomaly(Ecc, radians(EA))
 Epoch = (datetime(EpochY-1,12,31) + timedelta(EpochD)).strftime("%d %b %Y %H:%M:%S.%f")[:-3]
+Altitude = SMA*(1-Ecc)-6371
 
 print("Year:",EpochY,"\nDay:",EpochD,"\nInclination:",Inc,"\nRAAN:",RAAN,"\nEccentricity:",Ecc)
 print("AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Major Axis:", SMA)
 print("Epoch:", Epoch)
+print("Orbit altitude (approx.):", Altitude)
+
 
 print(("\nCreate Spacecraft "+SatName+";\n" +
 		"GMAT "+SatName+".Id = '"+SATNum+"';\n" +
