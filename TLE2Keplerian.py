@@ -49,8 +49,6 @@ if TLE[2][:2] != '2 'or checksum(TLE[2]) == False:
 SatName = TLE[0]
 SatName = SatName.replace("-","_")
 SatName = SatName.replace(" ","_")
-#Overwrite satellite name
-SatName = "DefaultSC"
 (line,SAT,Desgnator,TLEEpoch,MM1,MM2,BSTAR,EType,ElementNum) = TLE[1].split()
 (line,SATNum,Inc,RAAN,Ecc,AoP,MA,MM) = TLE[2].split()[:8]
 EpochY = int(TLEEpoch[:2])
@@ -71,6 +69,21 @@ print("Year:",EpochY,"\nDay:",EpochD,"\nInclination:",Inc,"\nRAAN:",RAAN,"\nEcce
 print("AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Major Axis:", SMA)
 print("Epoch:", Epoch)
 
+print(("\nCreate Spacecraft "+SatName+";\n" +
+		"GMAT "+SatName+".Id = '"+SATNum+"';\n" +
+		"GMAT "+SatName+".DateFormat = UTCGregorian;\n" +
+		"GMAT "+SatName+".Epoch = '"+Epoch+"';\n" +
+		"GMAT "+SatName+".CoordinateSystem = EarthMJ2000Eq;\n" +
+		"GMAT "+SatName+".DisplayStateType = Keplerian;\n" +
+		"GMAT "+SatName+".SMA = "+str(SMA)+";\n" +
+		"GMAT "+SatName+".ECC = "+str(Ecc)+";\n" +
+		"GMAT "+SatName+".INC = "+str(Inc)+";\n" +
+		"GMAT "+SatName+".RAAN = " + str(RAAN) + ";\n" +
+		"GMAT "+SatName+".AOP = " + str(AoP) + ";\n" +
+		"GMAT "+SatName+".TA = "+str(TA)+";\n"))
+
+#Overwrite satellite name
+SatName = "DefaultSC"
 print(("\nCreate Spacecraft "+SatName+";\n" +
 		"GMAT "+SatName+".Id = '"+SATNum+"';\n" +
 		"GMAT "+SatName+".DateFormat = UTCGregorian;\n" +
