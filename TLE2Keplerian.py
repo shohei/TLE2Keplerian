@@ -66,7 +66,7 @@ TA = getTrueAnomaly(Ecc, radians(EA))
 Epoch = (datetime(EpochY-1,12,31) + timedelta(EpochD)).strftime("%d %b %Y %H:%M:%S.%f")[:-3]
 
 print("Year:",EpochY,"\nDay:",EpochD,"\nInclination:",Inc,"\nRAAN:",RAAN,"\nEccentricity:",Ecc)
-print("AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Magor Axis:", SMA)
+print("AoP:",AoP,"\nMean Anomaly:",MA,"\nEcc. Anomaly:", EA,"\nTrue Anomaly:", TA, "\nMM:",MM, "\nSemi Major Axis:", SMA)
 print("Epoch:", Epoch)
 
 print(("\nCreate Spacecraft "+SatName+";\n" +
